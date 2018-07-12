@@ -5,9 +5,6 @@ using System.Text;
 
 namespace Dotnet.Redis.Runtime
 {
-    /// <summary>
-    /// Extension methods for <see cref="IDatabase"/>.
-    /// </summary>
     internal static class RedisDatabaseExtensions
     {
         public static void KeyDeleteWithPrefix(this IDatabase database, string prefix)

@@ -14,9 +14,6 @@ namespace Dotnet.Redis.Runtime
         private readonly IDatabase _database;
         private readonly IRedisCacheSerializer _serializer;
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
         public RedisCache(
             string name,
             IRedisCacheDatabaseProvider redisCacheDatabaseProvider,
@@ -40,8 +37,6 @@ namespace Dotnet.Redis.Runtime
                 throw new Exception("Can not insert null values to the cache!");
             }
 
-            //TODO: This is a workaround for serialization problems of entities.
-            //TODO: Normally, entities should not be stored in the cache, but currently Abp.Zero packages does it. It will be fixed in the future.
             var type = value.GetType();
             if (EntityHelper.IsEntity(type) && type.GetAssembly().FullName.Contains("EntityFrameworkDynamicProxies"))
             {
