@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Dotnet.Autofac\Dotnet.Autofac.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.AutoMapper\Dotnet.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.Caching\Dotnet.Caching.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.CastleWindsor\Dotnet.CastleWindsor.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.Json4Net\Dotnet.Json4Net.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.Log4Net\Dotnet.Log4Net.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.ProtoBuf\Dotnet.ProtoBuf.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
+
+</Project>

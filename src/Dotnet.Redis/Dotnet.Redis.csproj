@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet.Caching\Dotnet.Caching.csproj" />
+    <ProjectReference Include="..\Dotnet.Json4Net\Dotnet.Json4Net.csproj" />
+    <ProjectReference Include="..\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Dotnet.Autofac\Dotnet.Autofac.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.Json4Net\Dotnet.Json4Net.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet.Log4Net\Dotnet.Log4Net.csproj" />
+    <ProjectReference Include="..\..\src\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
+</Project>

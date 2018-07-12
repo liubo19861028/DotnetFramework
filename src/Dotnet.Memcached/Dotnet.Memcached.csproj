@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EnyimMemcached" Version="2.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet.Caching\Dotnet.Caching.csproj" />
+    <ProjectReference Include="..\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
+</Project>
