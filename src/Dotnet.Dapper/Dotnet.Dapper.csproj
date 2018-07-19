@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.Dapper</AssemblyName>
+    <Authors>liubo</Authors>
+    <Company />
+    <Product>DotnetFramework</Product>
+    <Description>通用.net类库Dapper ORM框架</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

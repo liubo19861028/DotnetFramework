@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.MongoDb</AssemblyName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>liubo</Authors>
+    <Company />
+    <Product>DotnetFramework</Product>
+    <Description>通用.net类库MongoDb Nosql数据库应用</Description>
   </PropertyGroup>
 
   <ItemGroup>

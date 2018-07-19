@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DotCommon.Quartz</AssemblyName>
-    <PackageId>DotCommon.Quartz</PackageId>
+    <AssemblyName>DotnetFramework.Quartz</AssemblyName>
+    <PackageId>DotnetFramework.Quartz</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Authors>virtual</Authors>
-    <Version>2.9.3</Version>
+    <Authors>liubo</Authors>
+    <Version>1.0.0</Version>
     <Description>通用.net类库Quartz定时任务</Description>
     <RootNamespace>DotCommon</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

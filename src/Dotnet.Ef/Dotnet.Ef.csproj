@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.Ef</AssemblyName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>通用.net类库EF ORM框架</Description>
+    <Authors>liubo</Authors>
+    <Company />
+    <Product>DotnetFramework</Product>
   </PropertyGroup>
 
 </Project>

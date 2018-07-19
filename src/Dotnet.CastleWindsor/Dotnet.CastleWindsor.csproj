@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DotCommon.CastleWindsor</AssemblyName>
-    <PackageId>DotCommon.CastleWindsor</PackageId>
+    <AssemblyName>DotnetFramework.CastleWindsor</AssemblyName>
+    <PackageId>DotnetFramework.CastleWindsor</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Authors>virtual</Authors>
-    <Version>2.9.3</Version>
+    <Authors>liubo</Authors>
+    <Version>1.0.0</Version>
     <Description>通用.net类库CastleWindsor注入</Description>
     <RootNamespace>DotCommon</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

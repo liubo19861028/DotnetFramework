@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DotCommon.Json4Net</AssemblyName>
-    <PackageId>DotCommon.Json4Net</PackageId>
+    <AssemblyName>DotnetFramework.Json4Net</AssemblyName>
+    <PackageId>DotnetFramework.Json4Net</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Authors>virtual</Authors>
-    <Version>2.9.3</Version>
+    <Authors>liubo</Authors>
+    <Version>1.0.0</Version>
     <Description>通用.net类库Json4Net序列化</Description>
     <RootNamespace>DotCommon</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

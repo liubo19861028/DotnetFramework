@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.Redis</AssemblyName>
+    <Authors>liubo</Authors>
+    <Company />
+    <Product>DotnetFramework</Product>
+    <Description>通用.net类库Redis 缓存应用</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

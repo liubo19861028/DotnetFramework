@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A9A93C8E-A768-4BBA-9E93-BEFFB600DD9C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DotCommon.DapperTest</RootNamespace>
-    <AssemblyName>DotCommon.DapperTest</AssemblyName>
+    <RootNamespace>Dotnet.DapperTest</RootNamespace>
+    <AssemblyName>Dotnet.DapperTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DotCommon.Caching</AssemblyName>
-    <PackageId>DotCommon.Caching</PackageId>
+    <AssemblyName>DotnetFramework.Caching</AssemblyName>
+    <PackageId>DotnetFramework.Caching</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Authors>virtual</Authors>
-    <Version>2.9.3</Version>
+    <Authors>liubo</Authors>
+    <Version>1.0.0</Version>
     <Description>通用的.net类库,缓存操作</Description>
     <RootNamespace>DotCommon</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

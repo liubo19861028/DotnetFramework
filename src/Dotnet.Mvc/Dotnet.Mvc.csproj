@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.Mvc</AssemblyName>
+    <Authors>liubo</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Company />
+    <Product>DotnetFramework</Product>
   </PropertyGroup>
 
 </Project>

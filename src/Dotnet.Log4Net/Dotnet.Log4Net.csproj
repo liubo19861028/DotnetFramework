@@ -2,15 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DotCommon.Log4Net</AssemblyName>
-    <PackageId>DotCommon.Log4Net</PackageId>
+    <AssemblyName>DotnetFramework.Log4Net</AssemblyName>
+    <PackageId>DotnetFramework.Log4Net</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Authors>virtual</Authors>
-    <Version>2.9.3</Version>
+    <Authors>liubo</Authors>
+    <Version>1.0.0</Version>
     <Description>通用.net类库Log4Net日志</Description>
     <RootNamespace>DotCommon</RootNamespace>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
