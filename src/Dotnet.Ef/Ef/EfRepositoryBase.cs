@@ -2,25 +2,29 @@
 using System;
 using System.Data.Common;
 using System.Linq.Expressions;
-using Dapper;
-using DapperExtensions;
 using System.Collections.Generic;
 using Dotnet.Data.Providers;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 
-
-namespace Dotnet.Dapper
+namespace Dotnet.Ef
 {
-    public class DapperRepositoryBase<TEntity> : DapperRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>
+    public class EfRepositoryBase<TEntity> : EfRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>
     {
     }
 
-    public class DapperRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
+    public class EfRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
 
-        public IActiveTransactionProvider _activeTransactionProvider { get; set; }
+        public EfActiveTransactionProvider _activeTransactionProvider { get; set; }
+
+        public virtual DbContext Context
+        {
+            get { return (DbContext)_activeTransactionProvider.GetDbContext(ActiveTransactionProviderArgs.Empty); }
+        }
 
         public virtual DbConnection Connection
         {
@@ -46,7 +50,7 @@ namespace Dotnet.Dapper
 
         public override TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
-            return Connection.GetList<TEntity>(predicate, transaction: ActiveTransaction).Single();
+            return Context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
         }
 
         public override TEntity FirstOrDefault(TPrimaryKey id)
@@ -56,7 +60,7 @@ namespace Dotnet.Dapper
 
         public override TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return Connection.GetList<TEntity>(predicate, transaction: ActiveTransaction).FirstOrDefault();
+            return Context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
         }
 
         public override TEntity Get(TPrimaryKey id)
@@ -67,78 +71,70 @@ namespace Dotnet.Dapper
 
         public override IEnumerable<TEntity> GetAll()
         {
-            return Connection.GetList<TEntity>(null, transaction: ActiveTransaction);
+            return Context.Set<TEntity>().AsNoTracking().AsQueryable();
         }
 
         public override IEnumerable<TEntity> Query(string query, object parameters = null)
         {
-            return Connection.Query<TEntity>(query, parameters, ActiveTransaction);
+            return null;
         }
 
         public override Task<IEnumerable<TEntity>> QueryAsync(string query, object parameters = null)
         {
-            return Connection.QueryAsync<TEntity>(query, parameters, ActiveTransaction);
+            return Task.Factory.StartNew(() => Query(query, parameters));
         }
 
         public override IEnumerable<TAny> Query<TAny>(string query, object parameters = null)
         {
-            return Connection.Query<TAny>(query, parameters, ActiveTransaction);
+            return null;
         }
 
         public override Task<IEnumerable<TAny>> QueryAsync<TAny>(string query, object parameters = null)
         {
-            return Connection.QueryAsync<TAny>(query, parameters, ActiveTransaction);
+            return Task.Factory.StartNew(() => Query<TAny>(query, parameters));
         }
 
         public override int Execute(string query, object parameters = null)
         {
-            return Connection.Execute(query, parameters, ActiveTransaction);
+            return Context.Database.ExecuteSqlCommand(query);
         }
 
         public override Task<int> ExecuteAsync(string query, object parameters = null)
         {
-            return Connection.ExecuteAsync(query, parameters, ActiveTransaction);
+            return Task.Factory.StartNew(() => Execute(query, parameters));
         }
 
         public override IEnumerable<TEntity> GetAllPaged(Expression<Func<TEntity, bool>> predicate, int pageNumber, int itemsPerPage, string sortingProperty, bool ascending = true)
         {
-            return Connection.GetPage<TEntity>(
-                predicate,
-                new List<ISort> { new Sort { Ascending = ascending, PropertyName = sortingProperty } },
-                pageNumber,
-                itemsPerPage,
-                ActiveTransaction);
+            return null;
         }
 
         public override int Count(Expression<Func<TEntity, bool>> predicate)
         {
-            return Connection.Count<TEntity>(predicate, ActiveTransaction);
+            return this.GetAll(predicate).Count();
         }
 
         public override IEnumerable<TEntity> GetSet(Expression<Func<TEntity, bool>> predicate, int firstResult, int maxResults, string sortingProperty, bool ascending = true)
         {
-            return Connection.GetSet<TEntity>(
-                predicate,
-                new List<ISort> { new Sort { Ascending = ascending, PropertyName = sortingProperty } },
-                firstResult,
-                maxResults,
-                ActiveTransaction
-            );
+            return null;
         }
 
         public override IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
         {
-            return Connection.GetList<TEntity>(predicate, transaction: ActiveTransaction);
+            var dbSet = Context.Set<TEntity>().AsNoTracking().AsQueryable();
+            if (predicate != null)
+                dbSet = dbSet.Where(predicate);
+            return dbSet;
         }
 
         public override IEnumerable<TEntity> GetAllPaged(Expression<Func<TEntity, bool>> predicate, int pageNumber, int itemsPerPage, bool ascending = true, params Expression<Func<TEntity, object>>[] sortingExpression)
         {
-            return Connection.GetPage<TEntity>(predicate, sortingExpression.ToSortable(ascending), pageNumber, itemsPerPage, ActiveTransaction);
+            return null;
         }
 
         public override IEnumerable<TEntity> GetSet(Expression<Func<TEntity, bool>> predicate, int firstResult, int maxResults, bool ascending = true, params Expression<Func<TEntity, object>>[] sortingExpression)
         {
-            return Connection.GetSet<TEntity>(predicate, sortingExpression.ToSortable(ascending), firstResult, maxResults, ActiveTransaction);
+            return null;
         }
 
         public override void Insert(TEntity entity)
@@ -146,14 +142,36 @@ namespace Dotnet.Dapper
             InsertAndGetId(entity);
         }
 
+        public void Save()
+        {
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw new Exception(e.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage);
+            }
+        }
+
         public override void Update(TEntity entity)
         {
-            Connection.Update(entity, ActiveTransaction);
+            var entry = this.Context.Entry(entity);
+            entry.State = EntityState.Modified;
+
+            //如果数据没有发生变化
+            if (!this.Context.ChangeTracker.HasChanges())
+            {
+                return;
+            }
+
+            Save();
         }
 
         public override void Delete(TEntity entity)
         {
-            Connection.Delete(entity, ActiveTransaction);
+            Context.Set<TEntity>().Remove(entity);
+            Save();
         }
 
         public override void Delete(Expression<Func<TEntity, bool>> predicate)
@@ -167,8 +185,9 @@ namespace Dotnet.Dapper
 
         public override TPrimaryKey InsertAndGetId(TEntity entity)
         {
-            TPrimaryKey primaryKey = Connection.Insert<TEntity>(entity, ActiveTransaction);
-            return primaryKey;
+            Context.Set<TEntity>().Add(entity);
+            Save();
+            return entity.Id;
         }
     }
 }

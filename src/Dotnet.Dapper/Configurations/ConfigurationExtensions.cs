@@ -13,11 +13,13 @@ namespace Dotnet.Configurations
         public static Configuration UseDapper(this Configuration configuration)
         {
             var container = IocManager.GetContainer();
-            
-            container.Register(typeof(RepositoryBase<,>),typeof(DapperRepositoryBase<,>),DependencyLifeStyle.Transient);
 
+            container.Register(typeof(RepositoryBase<,>),typeof(DapperRepositoryBase<,>),DependencyLifeStyle.Transient);            
             container.Register<IActiveTransactionProvider, DapperActiveTransactionProvider>(DependencyLifeStyle.Transient);
+            container.Register(typeof(IRepository<,>), typeof(DapperRepositoryBase<,>), DependencyLifeStyle.Transient);
 
+
+           // container.Register(typeof(IRepository<>), typeof(DapperRepositoryBase<>), DependencyLifeStyle.Transient);
             return configuration;
         }
 

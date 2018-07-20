@@ -10,4 +10,17 @@
     <Product>DotnetFramework</Product>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Ef\IDbContextProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="EntityFramework.DynamicFilters" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
 </Project>

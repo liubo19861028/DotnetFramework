@@ -124,6 +124,8 @@ namespace Dotnet.Autofac
             {
                 registrationBuilder.SingleInstance();
             }
+
+            
         }
 
         public void Register<TType, TImpl>(TImpl impl)

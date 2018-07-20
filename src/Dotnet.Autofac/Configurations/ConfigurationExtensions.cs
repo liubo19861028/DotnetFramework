@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Dotnet.Autofac;
+using Dotnet.Data;
 using Dotnet.Dependency;
 
 namespace Dotnet.Configurations
@@ -28,6 +29,7 @@ namespace Dotnet.Configurations
         public static Configuration AutofacBuild(this Configuration configuration)
         {
             var container = (AutofacIocContainer)IocManager.GetContainer();
+
             container.Build();
             return configuration;
         }
