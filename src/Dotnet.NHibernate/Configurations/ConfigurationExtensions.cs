@@ -1,8 +1,8 @@
-﻿using DotCommon.Dapper;
-using DotCommon.Dapper.Dapper;
-using DotCommon.Data;
-using DotCommon.Data.Providers;
-using DotCommon.Dependency;
+﻿using Dotnet.NHibernate;
+using Dotnet.Data;
+using Dotnet.Data.Providers;
+using Dotnet.Dependency;
+using System.Configuration;
 
 namespace DotCommon.Configurations
 {
@@ -15,9 +15,9 @@ namespace DotCommon.Configurations
             var container = IocManager.GetContainer();
             
             container.Register(typeof(RepositoryBase<,>),typeof(NHibernateRepositoryBase<,>),DependencyLifeStyle.Transient);
-            //container.Register(typeof(IDapperRepository<>), typeof(DapperRepositoryBase<,>), DependencyLifeStyle.Transient);
+            container.Register(typeof(IRepository<>), typeof(NHibernateRepositoryBase<,>), DependencyLifeStyle.Transient);
 
-            container.Register<IActiveTransactionProvider, DapperActiveTransactionProvider>(DependencyLifeStyle.Transient);
+            container.Register<NHibernateActiveTransactionProvider, NHibernateActiveTransactionProvider>(DependencyLifeStyle.Singleton);
 
             return configuration;
         }

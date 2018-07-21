@@ -1,18 +1,18 @@
-﻿using DotCommon.Data.Providers;
+﻿using Dotnet.Data.Providers;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
 
-namespace DotCommon.Dapper
+namespace Dotnet.NHibernate
 {
     public class NHibernateActiveTransactionProvider : IActiveTransactionProvider
     {
         private readonly IDbContext _dbContext;
-        private DbProviderFactory DbFactory {
-            get { return _dbContext.GetDbFactory(); }
-        }
+        private ISession _session;
+        public ISessionFactoryHolder _sessionFactoryHolder { get; set; }
 
         public NHibernateActiveTransactionProvider(IDbContext dbContext)
         {
@@ -27,12 +27,25 @@ namespace DotCommon.Dapper
 
         public IDbConnection GetActiveConnection(ActiveTransactionProviderArgs args)
         {
-           var connection = DbFactory.CreateConnection();
-            connection.ConnectionString = _dbContext.ConnectionString;
-            if (connection.State != ConnectionState.Open)
-                connection.Open();
+            return null;
+        }
 
-            return connection;
+        public ISession GetActiveSession(ActiveTransactionProviderArgs args)
+        {
+            EnsureSession();
+            return _session;
+        }
+
+        private void EnsureSession()
+        {
+            if (_session != null)
+            {
+                return;
+            }
+
+            var sessionFactory = _sessionFactoryHolder.GetSessionFactory();
+            _session = sessionFactory.OpenSession();
+
         }
     }
 }
