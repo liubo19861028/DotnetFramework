@@ -18,6 +18,7 @@ DotnetFramework是一个 C# 开发的工具类库,封装了一些基本功能,�
 - **Redis nosql数据库应用扩展包** PM> `Install-Package DotnetFramework.Redis`
 - **Dapper ORM应用扩展包** PM> `Install-Package DotnetFramework.Dapper`
 - **EF ORM应用扩展包** PM> `Install-Package DotnetFramework.EF`
+- **NHibernate ORM应用扩展包** PM> `Install-Package DotnetFramework.NHibernate`
 
 ## 初始化
 
