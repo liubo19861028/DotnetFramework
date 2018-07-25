@@ -9,5 +9,6 @@ namespace Dotnet.Data.Providers
     {
         DbProviderFactory GetDbFactory();
         string ConnectionString { get; }
+        DBType DBType { get; set; }
     }
 }

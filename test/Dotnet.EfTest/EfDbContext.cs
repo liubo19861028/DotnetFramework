@@ -49,5 +49,7 @@ namespace Dotnet.EfTest
             return null;
         }
         public  string ConnectionString { get; }
+
+        public DBType DBType { get; set; }
     }
 }

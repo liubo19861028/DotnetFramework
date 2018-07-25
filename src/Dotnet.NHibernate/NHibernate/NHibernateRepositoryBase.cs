@@ -12,7 +12,7 @@ using NHibernate.Linq;
 namespace Dotnet.NHibernate
 {
     public class NHibernateRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
-        where TEntity : class, IEntity<TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>, new()
     {
         public NHibernateActiveTransactionProvider _activeTransactionProvider { get; set; }
 

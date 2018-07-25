@@ -11,12 +11,12 @@ using System.Data.Entity.Validation;
 
 namespace Dotnet.Ef
 {
-    public class EfRepositoryBase<TEntity> : EfRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>
+    public class EfRepositoryBase<TEntity> : EfRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>, new()
     {
     }
 
     public class EfRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
-        where TEntity : class, IEntity<TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>, new()
     {
 
         public EfActiveTransactionProvider _activeTransactionProvider { get; set; }

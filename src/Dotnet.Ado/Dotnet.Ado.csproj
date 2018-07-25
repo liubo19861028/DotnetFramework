@@ -9,4 +9,8 @@
     <Company />
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
 </Project>

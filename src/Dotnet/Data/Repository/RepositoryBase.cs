@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Dotnet.Data
 {
-    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, int> where TEntity : class, IEntity<int>
+    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, int> where TEntity : class, IEntity<int>, new()
     {
     }
         /// <summary>
@@ -15,7 +15,7 @@ namespace Dotnet.Data
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
         /// <seealso cref="IRepository{TEntity,TPrimaryKey}" />
-    public abstract class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class, IEntity<TPrimaryKey>
+    public abstract class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class, IEntity<TPrimaryKey>, new()
     {
 
         public abstract TEntity Single(TPrimaryKey id);
@@ -169,14 +169,14 @@ namespace Dotnet.Data
 
         protected static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TPrimaryKey id)
         {
-            ParameterExpression lambdaParam = Expression.Parameter(typeof(TEntity));
+            ParameterExpression lambdaParam =System.Linq.Expressions.Expression.Parameter(typeof(TEntity));
 
-            BinaryExpression lambdaBody = Expression.Equal(
-                Expression.PropertyOrField(lambdaParam, "Id"),
-                Expression.Constant(id, typeof(TPrimaryKey))
+            BinaryExpression lambdaBody = System.Linq.Expressions.Expression.Equal(
+                System.Linq.Expressions.Expression.PropertyOrField(lambdaParam, "Id"),
+                System.Linq.Expressions.Expression.Constant(id, typeof(TPrimaryKey))
             );
 
-            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
+            return System.Linq.Expressions.Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
     }
 }

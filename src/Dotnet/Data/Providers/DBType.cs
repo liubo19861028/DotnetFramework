@@ -8,9 +8,11 @@ namespace Dotnet.Data.Providers
     {
         SqlServer,
         SqlServerCE,
+        SqlServer9,
         MySql,
         PostgreSQL,
         Oracle,
-        SQLite
+        SQLite,
+        Access
     }
 }

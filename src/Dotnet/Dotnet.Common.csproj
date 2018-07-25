@@ -22,8 +22,13 @@
     <None Remove="Json\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Data\Providers\AbstractDataServicesProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="lcpi.data.oledb" Version="1.7.2.3437" />
     <PackageReference Include="MySql.Data" Version="8.0.11" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.OracleClient" Version="1.0.8" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />

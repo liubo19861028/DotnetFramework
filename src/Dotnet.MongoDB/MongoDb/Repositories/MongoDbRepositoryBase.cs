@@ -13,7 +13,7 @@ namespace Dotnet.MongoDb.Repositories
     /// </summary>
     /// <typeparam name="TEntity">Type of the Entity for this repository</typeparam>
     public class MongoDbRepositoryBase<TEntity> : MongoDbRepositoryBase<TEntity, int>, IRepository<TEntity>
-        where TEntity : class, IEntity<int>
+        where TEntity : class, IEntity<int>, new()
     {
         public MongoDbRepositoryBase(IMongoDatabaseProvider databaseProvider)
             : base(databaseProvider)
@@ -27,7 +27,7 @@ namespace Dotnet.MongoDb.Repositories
     /// <typeparam name="TEntity">Type of the Entity for this repository</typeparam>
     /// <typeparam name="TPrimaryKey">Primary key of the entity</typeparam>
     public class MongoDbRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
-        where TEntity : class, IEntity<TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>, new()
     {
         public virtual MongoDatabase Database
         {

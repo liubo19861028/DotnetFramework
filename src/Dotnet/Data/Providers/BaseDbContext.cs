@@ -17,15 +17,23 @@ namespace Dotnet.Data.Providers
             }
         }
 
+        private DBType dBType = DBType.SqlServer;
+        public DBType DBType
+        {
+            get { return dBType; }
+            set { dBType = value; }
+        }
+
         public DbProviderFactory GetDbFactory()
         {
             string _providerName = "";
+
             if (!string.IsNullOrEmpty(ConfigurationManager.ConnectionStrings[connectionStringName].ProviderName))
                 _providerName = ConfigurationManager.ConnectionStrings[connectionStringName].ProviderName;
             else
                 throw new Exception("ConnectionStrings中没有配置提供程序ProviderName！");
 
-            return DbProviderFactories.GetFactory(_providerName);
+            return DbProviderFactories.GetFactory(_providerName,ref dBType);
         }
     }
 }

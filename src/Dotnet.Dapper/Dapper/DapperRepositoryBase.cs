@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Dotnet.Dapper
 {
-    public class DapperRepositoryBase<TEntity> : DapperRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>
+    public class DapperRepositoryBase<TEntity> : DapperRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>, new()
     {
     }
 
     public class DapperRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
-        where TEntity : class, IEntity<TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>, new()
     {
 
         public IActiveTransactionProvider _activeTransactionProvider { get; set; }
