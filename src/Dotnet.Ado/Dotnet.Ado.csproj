@@ -3,10 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>DotnetFramework.Ado</AssemblyName>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>liubo</Authors>
     <Product>DotnetFramework</Product>
     <Company />
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

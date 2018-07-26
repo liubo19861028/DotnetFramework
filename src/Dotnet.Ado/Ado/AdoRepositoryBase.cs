@@ -10,14 +10,17 @@ using Dotnet.Ado.Db;
 using System.Data;
 using Dotnet.Ado.Entity;
 using Dotnet.Data.Expression;
+using System.Dynamic;
+using Dotnet.Reflecting;
 
 namespace Dotnet.Ado
 {
-    public class AdoRepositoryBase<TEntity> : AdoRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>, new()
+
+    public class AdoRepositoryBase<TEntity> : AdoRepositoryBase<TEntity, int> where TEntity : class, IEntity<int>, new() 
     {
     }
 
-    public class AdoRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>  where TEntity : class, IEntity<TPrimaryKey>, new()
+    public class AdoRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>  where TEntity : class, IEntity<TPrimaryKey>, new() 
     {
 
         public IActiveTransactionProvider _activeTransactionProvider { get; set; }
@@ -95,10 +98,10 @@ namespace Dotnet.Ado
             DbCommand dbCommand = db.GetSqlStringCommand(query);
             if (parameters != null)
             {
-                /*foreach (var item in parameters)
+                foreach (var item in ReflectionHelper.GetObjectValues(parameters))
                 {
                     db.AddInParameter(dbCommand, item.Key, item.Value);
-                }*/
+                }
             }
             return db.ExecuteReader<TEntity>(dbCommand);
         }
@@ -132,10 +135,10 @@ namespace Dotnet.Ado
             DbCommand dbCommand = db.GetSqlStringCommand(query);
             if (parameters != null)
             {
-                /*foreach (var item in parameters)
+                foreach (var item in ReflectionHelper.GetObjectValues(parameters))
                 {
                     db.AddInParameter(dbCommand, item.Key, item.Value);
-                }*/
+                }
             }
             return db.ExecuteNonQuery(dbCommand);
         }
@@ -229,8 +232,7 @@ namespace Dotnet.Ado
             DbCommand dbCommand = db.GetSqlStringCommand(sqlBuilder.Sql);
             dbCommand.Parameters.AddRange(sqlBuilder.DbParameters.ToArray());
             object obj=  db.ExecuteScalar(dbCommand);
-           // entity.Id = (TPrimaryKey)obj;
-            return entity.Id;
+            return  (TPrimaryKey)obj;
         }
 
 
