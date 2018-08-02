@@ -1,5 +1,4 @@
 ﻿using Dotnet.Ado;
-using Dotnet.Common;
 using Dotnet.Data;
 
 namespace Dotnet.AdoTest

@@ -16,17 +16,28 @@
   <ItemGroup>
     <Compile Remove="Data\Providers2\**" />
     <Compile Remove="Json\**" />
+    <Compile Remove="Validations\Validators\**" />
     <EmbeddedResource Remove="Data\Providers2\**" />
     <EmbeddedResource Remove="Json\**" />
+    <EmbeddedResource Remove="Validations\Validators\**" />
     <None Remove="Data\Providers2\**" />
     <None Remove="Json\**" />
+    <None Remove="Validations\Validators\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Providers\AbstractDataServicesProvider.cs" />
+    <Compile Remove="Utility\JsonUtil.cs" />
+    <Compile Remove="Utility\ObjectId.cs" />
+    <Compile Remove="Utility\UnilayerXml.cs" />
+    <Compile Remove="Validations\ThrowHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.7.0" />
     <PackageReference Include="lcpi.data.oledb" Version="1.7.2.3437" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
     <PackageReference Include="MySql.Data" Version="8.0.11" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.OracleClient" Version="1.0.8" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />

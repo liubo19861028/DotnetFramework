@@ -11,7 +11,7 @@ namespace Dotnet.DapperTest
 {
     public class DapperRepository_Tests
     {
-        private readonly RepositoryBase<Product> _productDapperRepository;
+       // private readonly RepositoryBase<Product> _productDapperRepository;
         private readonly RepositoryBase<Product,int> _productRepository;
         private readonly IRepository<Product, int> _productRepository2;
 

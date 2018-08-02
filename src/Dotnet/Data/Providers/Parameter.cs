@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Dotnet.Common.Data.Providers
+namespace Dotnet.Data.Providers
 {
     /// <summary>
     /// 参数

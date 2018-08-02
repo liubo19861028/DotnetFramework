@@ -71,7 +71,7 @@
       <Name>Dotnet.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Dotnet.Ef\Dotnet.Ef.csproj">
-      <Project>{00e4321e-b850-47b5-b4e6-26b395fcf18f}</Project>
+      <Project>{d36f97f4-005c-4895-a2fe-4f63c618b346}</Project>
       <Name>Dotnet.Ef</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Dotnet.Json4Net\Dotnet.Json4Net.csproj">

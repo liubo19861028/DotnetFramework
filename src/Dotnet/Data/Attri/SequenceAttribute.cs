@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dotnet.Common
+namespace Dotnet
 {
     /// <summary>
     /// 序列for oracle

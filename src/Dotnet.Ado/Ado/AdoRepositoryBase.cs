@@ -232,7 +232,7 @@ namespace Dotnet.Ado
             DbCommand dbCommand = db.GetSqlStringCommand(sqlBuilder.Sql);
             dbCommand.Parameters.AddRange(sqlBuilder.DbParameters.ToArray());
             object obj=  db.ExecuteScalar(dbCommand);
-            return  (TPrimaryKey)obj;
+            return  (TPrimaryKey)obj;  //这里会报错，有空再研究。哈哈
         }
 
 

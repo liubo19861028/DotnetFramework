@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Dotnet.Extensions
 {
@@ -25,6 +28,19 @@ namespace Dotnet.Extensions
                 return hash;
             }
         }
+
+        /// <summary>
+        /// 检测对象是否为null,为null则抛出<see cref="ArgumentNullException"/>异常
+        /// </summary>
+        /// <param name="obj">对象</param>
+        /// <param name="parameterName">参数名</param>
+        public static void CheckNull(this object obj, string parameterName)
+        {
+            if (obj == null)
+                throw new ArgumentNullException(parameterName);
+        }
+
+
         /// <summary>判断String类型是否为空
         /// </summary>
         public static bool IsNullOrEmpty(this string str)
@@ -232,5 +248,99 @@ namespace Dotnet.Extensions
 
             return (T)Enum.Parse(typeof(T), value, ignoreCase);
         }
+
+        /// <summary>
+        /// 安全转换为字符串，去除两端空格，当值为null时返回""
+        /// </summary>
+        /// <param name="input">输入值</param>
+        public static string SafeString(this object input)
+        {
+            return input == null ? string.Empty : input.ToString().Trim();
+        }
+
+        public static string ToFilePath(this string path)
+        {
+            return string.Join(Path.DirectorySeparatorChar.ToString(), path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+        }
+        public static string CombinePath(this string p, string path)
+        {
+            return p + Path.DirectorySeparatorChar + path;
+        }
+
+
+        public static bool IsNotNullAndWhiteSpace(this string instance)
+        {
+            return !string.IsNullOrWhiteSpace(instance);
+        }
+
+        public static string FormatWith(this string instance, params object[] args)
+        {
+            return string.Format(instance, args);
+        }
+
+        public static string NoHTML(this string Htmlstring)
+        {
+            Htmlstring = Regex.Replace(Htmlstring, @"<script[\s\S]*?</script>", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<noscript[\s\S]*?</noscript>", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<style[\s\S]*?</style>", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<.*?>", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", " ", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"([\r\n])[\s]+", " ", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"-->", " ", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"<!--.*", " ", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(quot|#34);", "\"", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(amp|#38);", "&", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(lt|#60);", "<", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(gt|#62);", ">", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(nbsp|#160);", "", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(iexcl|#161);", "\xa1", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(cent|#162);", "\xa2", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(pound|#163);", "\xa3", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&(copy|#169);", "\xa9", RegexOptions.IgnoreCase);
+            Htmlstring = Regex.Replace(Htmlstring, @"&#(\d+);", " ", RegexOptions.IgnoreCase);
+            return Htmlstring;
+        }
+
+
+        public static byte[] ToByte(this string value)
+        {
+            return System.Text.Encoding.UTF8.GetBytes(value);
+        }
+
+
+        public static string HtmlDecode(this string value)
+        {
+            return System.Net.WebUtility.HtmlDecode(value);
+        }
+
+        public static string HtmlEncode(this string value)
+        {
+            return System.Net.WebUtility.HtmlEncode(value);
+        }
+
+        public static string UrlEncode(this string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            byte[] byStr = System.Text.Encoding.UTF8.GetBytes(value);
+            for (int i = 0; i < byStr.Length; i++)
+            {
+                sb.Append(@"%" + Convert.ToString(byStr[i], 16));
+            }
+            return (sb.ToString());
+        }
+
+
+        public static string ToUnicode(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < value.Length; i++)
+            {
+                builder.Append("\\u" + ((int)value[i]).ToString("x"));
+            }
+            return builder.ToString();
+        }
+
+
     }
 }

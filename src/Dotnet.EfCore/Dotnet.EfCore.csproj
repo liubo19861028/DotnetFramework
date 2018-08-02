@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DotnetFramework.EfCore</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>通用.net类库EF ORM框架</Description>
+    <Authors>liubo</Authors>
+    <Company />
+    <Product>DotnetFramework</Product>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Ef\IDbContextProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.1" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet\Dotnet.Common.csproj" />
+  </ItemGroup>
+
+</Project>
