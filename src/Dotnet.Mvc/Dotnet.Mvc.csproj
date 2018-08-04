@@ -4,17 +4,21 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>DotnetFramework.Mvc</AssemblyName>
     <Authors>liubo</Authors>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company />
     <Product>DotnetFramework</Product>
+    <Version>1.0.1</Version>
+    <Description>通用.net类库 MVC相关帮助类库</Description>
+    <PackageReleaseNotes>通用.net类库 MVC相关帮助类库</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Mvc\Authorize\DefaultAuthorizer.cs" />
-    <Compile Remove="Mvc\Authorize\IAuthorizer.cs" />
-    <Compile Remove="Mvc\Authorize\KnownRequirement.cs" />
-    <Compile Remove="Mvc\Authorize\RolePolicyRequirementHandler.cs" />
-    <Compile Remove="Mvc\Controllers\BasicController.cs" />
+    <Compile Remove="Authorize\DefaultAuthorizer.cs" />
+    <Compile Remove="Authorize\IAuthorizer.cs" />
+    <Compile Remove="Authorize\KnownRequirement.cs" />
+    <Compile Remove="Authorize\RolePolicyRequirementHandler.cs" />
+    <Compile Remove="Controllers\BasicController.cs" />
+    <Compile Remove="RazorPages\ThemeViewEngine.cs" />
   </ItemGroup>
 
   <ItemGroup>

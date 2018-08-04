@@ -19,9 +19,10 @@ namespace Dotnet.Configurations
             var container = IocManager.GetContainer();
 
             container.Register<IRedisCacheDatabaseProvider, RedisCacheDatabaseProvider>();
+            container.Register<RedisCacheManager, RedisCacheManager>();
             container.Register<ICacheManager, RedisCacheManager>();
             container.Register<ICache, RedisCache>();
-
+            container.Register<RedisCache, RedisCache>();
             optionsAction(container.Resolve<RedisCacheOptions>());
         }
 

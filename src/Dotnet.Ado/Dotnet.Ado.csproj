@@ -8,6 +8,8 @@
     <Product>DotnetFramework</Product>
     <Company />
     <Version>1.0.1</Version>
+    <Description>通用.net类库以ADO技术驱动的ORM框架</Description>
+    <PackageReleaseNotes>通用.net类库以ADO技术驱动的ORM框架</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

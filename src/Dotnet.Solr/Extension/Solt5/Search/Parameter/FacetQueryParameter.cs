@@ -1,0 +1,101 @@
+﻿using Newtonsoft.Json.Linq;
+using Dotnet.Solr.Search;
+using Dotnet.Solr.Search.Parameter;
+using Dotnet.Solr.Search.Parameter.Validation;
+using Dotnet.Solr.Search.Query;
+using Dotnet.Solr.Utility;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Dotnet.Solr.Solr5.Search.Parameter
+{
+    [AllowMultipleInstances]
+    // TODO: Think about this, no implements ISearchItemFieldExpressions<> or ISearchItemFieldExpression<>
+    //[FieldMustBeIndexedTrue]
+    public sealed class FacetQueryParameter<TDocument> : IFacetQueryParameter<TDocument>, ISearchItemExecution<JObject>
+        where TDocument : Document
+    {
+        private JProperty _result;
+
+        public FacetQueryParameter(ISolrExpressServiceProvider<TDocument> serviceProvider)
+        {
+            this.ServiceProvider = serviceProvider;
+        }
+
+        public string AliasName { get; set; }
+        public string[] Excludes { get; set; }
+        public int? Limit { get; set; }
+        public int? Minimum { get; set; }
+        public SearchQuery<TDocument> Query { get; set; }
+        public FacetSortType? SortType { get; set; }
+        public ISolrExpressServiceProvider<TDocument> ServiceProvider { get; set; }
+        public IList<IFacetParameter<TDocument>> Facets { get; set; }
+        public SearchQuery<TDocument> Filter { get; set; }
+
+        public void AddResultInContainer(JObject container)
+        {
+            var jObj = (JObject)container["facet"] ?? new JObject();
+            jObj.Add(this._result);
+            container["facet"] = jObj;
+        }
+
+        public void Execute()
+        {
+            var array = new List<JProperty>
+            {
+                new JProperty("q", this.Query.Execute())
+            };
+
+            JProperty domain = null;
+            if (this.Excludes?.Any() ?? false)
+            {
+                var excludeValue = new JObject(new JProperty("excludeTags", new JArray(this.Excludes)));
+                domain = new JProperty("domain", excludeValue);
+            }
+            if (this.Filter != null)
+            {
+                var filter = new JProperty("filter", this.Filter.Execute());
+                domain = domain ?? new JProperty("domain", new JObject());
+                ((JObject)domain.Value).Add(filter);
+            }
+            if (domain != null)
+            {
+                array.Add(domain);
+            }
+
+            if (this.Minimum.HasValue)
+            {
+                array.Add(new JProperty("mincount", this.Minimum.Value));
+            }
+
+            if (this.Limit.HasValue)
+            {
+                array.Add(new JProperty("limit", this.Limit.Value));
+            }
+
+            if (this.SortType.HasValue)
+            {
+                ParameterUtil.GetFacetSort(this.SortType.Value, out string typeName, out string sortName);
+
+                array.Add(new JProperty("sort", new JObject(new JProperty(typeName, sortName))));
+            }
+
+            if (this.Facets?.Any() ?? false)
+            {
+                Parallel.ForEach(this.Facets, item => ((ISearchItemExecution<JObject>)item).Execute());
+
+                var subfacets = new JObject();
+
+                foreach (var item in this.Facets)
+                {
+                    ((ISearchItemExecution<JObject>)item).AddResultInContainer(subfacets);
+                }
+
+                array.Add((JProperty)subfacets.First);
+            }
+
+            this._result = new JProperty(this.AliasName, new JObject(new JProperty("query", new JObject(array.ToArray()))));
+        }
+    }
+}

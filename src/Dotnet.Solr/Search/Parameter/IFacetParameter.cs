@@ -1,0 +1,47 @@
+﻿using Dotnet.Solr.Search.Query;
+using System.Collections.Generic;
+
+namespace Dotnet.Solr.Search.Parameter
+{
+    /// <summary>
+    /// Facet parameter
+    /// </summary>
+    public interface IFacetParameter<TDocument> : ISearchParameter
+        where TDocument : Document
+    {
+        /// <summary>
+        /// Services provider
+        /// </summary>
+        ISolrExpressServiceProvider<TDocument> ServiceProvider { get; set; }
+
+        /// <summary>
+        /// List of subfacets
+        /// </summary>
+        IList<IFacetParameter<TDocument>> Facets { get; set; }
+
+        /// <summary>
+        /// Specify a filter or list of filters to be intersected with the incoming domain before faceting
+        /// </summary>
+        SearchQuery<TDocument> Filter { get; set; }
+
+        /// <summary>
+        /// Sort type of result of facet
+        /// </summary>
+        FacetSortType? SortType { get; set; }
+
+        /// <summary>
+        /// Minimum count of itens in facet's result
+        /// </summary>
+        int? Minimum { get; set; }
+
+        /// <summary>
+        /// Limit of itens in facet's result
+        /// </summary>
+        int? Limit { get; set; }
+
+        /// <summary>
+        /// List of tags to exclude in facet calculation
+        /// </summary>
+        string[] Excludes { get; set; }
+    }
+}
