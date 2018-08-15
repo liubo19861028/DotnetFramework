@@ -8,6 +8,7 @@ using Dotnet.Scheduling;
 using Dotnet.Serializing;
 using Dotnet.Threading.BackgroundWorkers;
 using Dotnet.Threading.Timers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -57,6 +58,8 @@ namespace Dotnet.Configurations
 
             return this;
         }
+
+       
 
         /// <summary>注册定时任务
         /// </summary>

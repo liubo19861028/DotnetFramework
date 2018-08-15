@@ -11,6 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using Dotnet.Extensions;
 
 namespace Dotnet.Ado.Provider
 {
@@ -224,7 +225,7 @@ namespace Dotnet.Ado.Provider
             }
         }
 
-
+        #region 调整DbCommand命令
         /// <summary>
         /// 调整DbCommand命令
         /// </summary>
@@ -300,7 +301,7 @@ namespace Dotnet.Ado.Provider
                 }
             }
         }
-
+        #endregion
 
         #region << 参数准备 >>
 
@@ -634,7 +635,7 @@ namespace Dotnet.Ado.Provider
         }
 
 
-        public SqlBuilder GetSQLByLambda<T>(Expression<Func<T, bool>> exp)
+        public virtual SqlBuilder GetSQLByLambda<T>(Expression<Func<T, bool>> exp)
         {
             StringBuilder selectSql = new StringBuilder();
             List<DbParameter> parms = new List<DbParameter>();
@@ -663,7 +664,7 @@ namespace Dotnet.Ado.Provider
         /// <param name="selectSql"></param>
         /// <param name="parms"></param>
         /// <param name="exp"></param>
-        public SqlBuilder GetExistsSQLByLambda<T>(Expression<Func<T, bool>> exp) where T : class, new()
+        public virtual SqlBuilder GetExistsSQLByLambda<T>(Expression<Func<T, bool>> exp) where T : class, new()
         {
             StringBuilder selectSql = new StringBuilder();
             List<DbParameter> parms = new List<DbParameter>();
@@ -678,6 +679,52 @@ namespace Dotnet.Ado.Provider
                     parms.Add(GetDbParameter(parm.Key, parm.Value));
                 }
             }
+            return new SqlBuilder
+            {
+                Sql = selectSql.ToString(),
+                DbParameters = parms
+            };
+        }
+
+
+        public virtual SqlBuilder GetPagedSQLByLambda<T>(Expression<Func<T, bool>> exp, int pageNumber, int itemsPerPage, bool ascending = true, params Expression<Func<T, object>>[] sortingExpression)
+        {
+            string sql = string.Empty;
+            string sqlPageCount = string.Empty;
+
+            if (pageNumber <= 0)
+            {
+                pageNumber = 1;
+            }
+
+            if (itemsPerPage <= 0)
+            {
+                itemsPerPage = 10;
+            }
+
+            StringBuilder selectSql = new StringBuilder();
+            List<DbParameter> parms = new List<DbParameter>();
+            EntityInfo entityInfo = Caches.EntityInfoCache.Get(typeof(T));
+
+            if (exp != null)
+            {
+                QueryResult result = DynamicQuery.GetDynamicWhere(exp);
+                selectSql.AppendFormat("  {0}", result.Sql);
+                foreach (var parm in result.Param)
+                {
+                    parms.Add(GetDbParameter(parm.Key, parm.Value));
+                }
+            }
+
+            string orderBy = "";
+
+           sql = @"SELECT {0}
+                        FROM {1} 
+                        where 1=1 {2}
+						ORDER BY {3}
+						OFFSET {4} ROWS FETCH NEXT {5} ROWS ONLY
+                       ".FormatWith(entityInfo.SelectFields, entityInfo.TableName, selectSql.ToString(), orderBy, (pageNumber-1) * itemsPerPage, itemsPerPage);
+
             return new SqlBuilder
             {
                 Sql = selectSql.ToString(),

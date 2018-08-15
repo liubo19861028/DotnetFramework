@@ -1,5 +1,4 @@
-﻿using Dotnet.Data.Providers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -7,10 +6,10 @@ using System.Threading.Tasks;
 namespace Dotnet.Data
 {
     /// <summary>
-    /// A shortcut of <see cref="IRepository{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="IServices{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public interface IRepository<TEntity> : IRepository<TEntity, int> where TEntity : class, IEntity<int>
+    public interface IServices<TEntity> : IServices<TEntity, int> where TEntity : class, IEntity<int>
     {
 
     }
@@ -20,11 +19,9 @@ namespace Dotnet.Data
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
-    /// <seealso cref="IRepository{TEntity,TPrimaryKey}" />
-    public interface IRepository<TEntity, TPrimaryKey>  where TEntity : class, IEntity<TPrimaryKey>
+    /// <seealso cref="IServices{TEntity,TPrimaryKey}" />
+    public interface IServices<TEntity, TPrimaryKey>  where TEntity : class, IEntity<TPrimaryKey>
     {
-        IActiveTransactionProvider _activeTransactionProvider { get; set; }
-
         /// <summary>
         ///     Gets the specified identifier.
         /// </summary>
@@ -333,8 +330,5 @@ namespace Dotnet.Data
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
         Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
-
-
-        void SetDataContextByResloveName(string contextName);
     }
 }

@@ -10,13 +10,13 @@ namespace Dotnet.NHibernate
 {
     public class NHibernateActiveTransactionProvider : IActiveTransactionProvider
     {
-        private readonly IDbContext _dbContext;
+        public IDbContext DbContext { get; set; }
         private ISession _session;
         public ISessionFactoryHolder _sessionFactoryHolder { get; set; }
 
         public NHibernateActiveTransactionProvider(IDbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public IDbTransaction GetActiveTransaction(ActiveTransactionProviderArgs args)

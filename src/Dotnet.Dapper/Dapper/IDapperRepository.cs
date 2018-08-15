@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dotnet.Dapper.Dapper
 {
-    public interface IDapperRepository<TEntity> : IRepository<TEntity, int> where TEntity : class, IEntity<int>
+    public interface IDapperRepository<TEntity> : IServices<TEntity, int> where TEntity : class, IEntity<int>
     {
 
     }

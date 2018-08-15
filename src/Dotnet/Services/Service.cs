@@ -3,8 +3,6 @@
     /// <summary>
     /// Represents that the derived types are services.
     /// </summary>
-    /// <seealso cref="WeText.Common.DisposableObject" />
-    /// <seealso cref="WeText.Common.Services.IService" />
     public abstract class Service : DisposableObject, IService
     {
         /// <summary>

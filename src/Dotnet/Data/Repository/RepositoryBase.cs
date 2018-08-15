@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dotnet.Data.Providers;
+using Dotnet.Dependency;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -9,14 +11,15 @@ namespace Dotnet.Data
     {
     }
         /// <summary>
-        ///     Base class to implement <see cref="IRepository{TEntity,TPrimaryKey}" />.
+        ///     Base class to implement <see cref="IServices{TEntity,TPrimaryKey}" />.
         ///     It implements some methods in most simple way.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
-        /// <seealso cref="IRepository{TEntity,TPrimaryKey}" />
+        /// <seealso cref="IServices{TEntity,TPrimaryKey}" />
     public abstract class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class, IEntity<TPrimaryKey>, new()
     {
+        public IActiveTransactionProvider _activeTransactionProvider { get; set; }
 
         public abstract TEntity Single(TPrimaryKey id);
 
@@ -39,12 +42,12 @@ namespace Dotnet.Data
             return Task.FromResult(Query(query, parameters));
         }
 
-        public virtual IEnumerable<TAny> Query<TAny>(string query, object parameters = null) where TAny : class
+        public virtual IEnumerable<TAny> Query<TAny>(string query, object parameters = null) where TAny : class, new()
         {
             return null;
         }
 
-        public virtual Task<IEnumerable<TAny>> QueryAsync<TAny>(string query, object parameters = null) where TAny : class
+        public virtual Task<IEnumerable<TAny>> QueryAsync<TAny>(string query, object parameters = null) where TAny : class, new()
         {
             return Task.FromResult(Query<TAny>(query, parameters));
         }
@@ -178,5 +181,23 @@ namespace Dotnet.Data
 
             return System.Linq.Expressions.Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
+
+
+
+        public virtual void SetDataContextByResloveName(string contextName)
+        {
+            try
+            {
+                IDbContext dbContext = IocManager.GetContainer().ResolveNamed<IDbContext>(contextName);
+                _activeTransactionProvider.DbContext = dbContext;
+                
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("设置DataContextr出错");
+            }
+
+        }
+
     }
 }

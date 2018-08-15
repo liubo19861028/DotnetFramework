@@ -9,8 +9,8 @@ namespace Dotnet.Autofac
 {
     public class AutofacIocContainer : IIocContainer
     {
-        protected IContainer _container;
-        protected ContainerBuilder _builder;
+        public IContainer _container;
+        public ContainerBuilder _builder;
 
         public AutofacIocContainer()
         {
@@ -32,6 +32,8 @@ namespace Dotnet.Autofac
         {
             _container = _builder.Build();
         }
+
+        
 
         public T GetEngine<T>()
         {

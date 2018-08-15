@@ -15,7 +15,7 @@ namespace DotCommon.Configurations
             var container = IocManager.GetContainer();
             
             container.Register(typeof(RepositoryBase<,>),typeof(NHibernateRepositoryBase<,>),DependencyLifeStyle.Transient);
-            container.Register(typeof(IRepository<>), typeof(NHibernateRepositoryBase<,>), DependencyLifeStyle.Transient);
+            container.Register(typeof(IRepository<,>), typeof(NHibernateRepositoryBase<,>), DependencyLifeStyle.Transient);
 
             container.Register<NHibernateActiveTransactionProvider, NHibernateActiveTransactionProvider>(DependencyLifeStyle.Singleton);
 

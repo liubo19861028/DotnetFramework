@@ -16,8 +16,8 @@ namespace Dotnet.Ado.Db
     /// </summary>
     public sealed class Database
     {
-        // public IDbContext DbContext { get; set; }
-        public IDbContext DbContext;
+         public IDbContext DbContext { get; set; }
+       // public IDbContext DbContext;
 
         /// <summary>
         /// 构造函数

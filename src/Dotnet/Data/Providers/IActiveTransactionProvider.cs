@@ -7,6 +7,8 @@ namespace Dotnet.Data.Providers
 {
     public interface IActiveTransactionProvider
     {
+        IDbContext DbContext { get; set; }
+
         /// <summary>
         ///     Gets the active transaction or null if current UOW is not transactional.
         /// </summary>

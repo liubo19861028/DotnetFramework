@@ -14,8 +14,9 @@ namespace Dotnet.NHibernate
     public class NHibernateRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>, new()
     {
-        public NHibernateActiveTransactionProvider _activeTransactionProvider { get; set; }
+       // public new NHibernateActiveTransactionProvider _activeTransactionProvider { get; set; }
 
+        private NHibernateActiveTransactionProvider provider => (NHibernateActiveTransactionProvider)_activeTransactionProvider;
 
         /// <summary>
         ///     Gets the active transaction. If Dapper is active then <see cref="IUnitOfWork" /> should be started before
@@ -37,7 +38,7 @@ namespace Dotnet.NHibernate
 
         protected virtual ISession Session
         {
-            get { return (ISession)_activeTransactionProvider.GetActiveSession(ActiveTransactionProviderArgs.Empty); }
+            get { return (ISession)provider.GetActiveSession(ActiveTransactionProviderArgs.Empty); }
         }
 
         public virtual IQueryable<TEntity> Table

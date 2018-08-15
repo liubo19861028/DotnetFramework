@@ -10,11 +10,11 @@ namespace Dotnet.Ef
 {
     public class EfActiveTransactionProvider: IActiveTransactionProvider
     {
-        private readonly IDbContext _dbContext;
+        public IDbContext DbContext { get; set; }
 
         public EfActiveTransactionProvider(IDbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public IDbTransaction GetActiveTransaction(ActiveTransactionProviderArgs args)
@@ -30,7 +30,7 @@ namespace Dotnet.Ef
 
         public DbContext GetDbContext(ActiveTransactionProviderArgs args)
         {
-            DbContext dbContext = (DbContext)_dbContext;
+            DbContext dbContext = (DbContext)DbContext;
             return dbContext;
         }
     }

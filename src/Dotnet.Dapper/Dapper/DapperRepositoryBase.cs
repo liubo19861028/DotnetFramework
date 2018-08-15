@@ -20,7 +20,7 @@ namespace Dotnet.Dapper
         where TEntity : class, IEntity<TPrimaryKey>, new() 
     {
 
-        public IActiveTransactionProvider _activeTransactionProvider { get; set; }
+      //  public IActiveTransactionProvider _activeTransactionProvider { get; set; }
 
         public virtual DbConnection Connection
         {

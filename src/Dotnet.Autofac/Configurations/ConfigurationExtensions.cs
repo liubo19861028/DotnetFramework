@@ -16,6 +16,7 @@ namespace Dotnet.Configurations
             return configuration;
         }
 
+
         /// <summary>容器生效
         /// </summary>
         public static Configuration AutofacBuild(this Configuration configuration, IContainer container)
@@ -31,6 +32,17 @@ namespace Dotnet.Configurations
             var container = (AutofacIocContainer)IocManager.GetContainer();
 
             container.Build();
+            return configuration;
+        }
+
+        /// <summary>容器生效
+        /// </summary>
+        public static Configuration AutofacBuild(this Configuration configuration,ref IContainer refContainer)
+        {
+            var container = (AutofacIocContainer)IocManager.GetContainer();
+
+             container.Build();
+             refContainer= container._container;
             return configuration;
         }
     }

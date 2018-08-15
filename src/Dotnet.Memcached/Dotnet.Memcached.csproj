@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="EnyimMemcachedCore" Version="2.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

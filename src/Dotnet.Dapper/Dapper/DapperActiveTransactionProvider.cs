@@ -9,14 +9,15 @@ namespace Dotnet.Dapper
 {
     public class DapperActiveTransactionProvider: IActiveTransactionProvider
     {
-        private readonly IDbContext _dbContext;
+        public IDbContext DbContext { get; set; }
+
         private DbProviderFactory DbFactory {
-            get { return _dbContext.GetDbFactory(); }
+            get { return DbContext.GetDbFactory(); }
         }
 
         public DapperActiveTransactionProvider(IDbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public IDbTransaction GetActiveTransaction(ActiveTransactionProviderArgs args)
@@ -28,7 +29,7 @@ namespace Dotnet.Dapper
         public IDbConnection GetActiveConnection(ActiveTransactionProviderArgs args)
         {
            var connection = DbFactory.CreateConnection();
-            connection.ConnectionString = _dbContext.ConnectionString;
+            connection.ConnectionString = DbContext.ConnectionString;
             if (connection.State != ConnectionState.Open)
                 connection.Open();
 

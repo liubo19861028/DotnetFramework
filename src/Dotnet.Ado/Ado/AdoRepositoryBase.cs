@@ -12,6 +12,8 @@ using Dotnet.Ado.Entity;
 using Dotnet.Data.Expression;
 using System.Dynamic;
 using Dotnet.Reflecting;
+using Dotnet.Utility;
+using Dotnet.Dependency;
 
 namespace Dotnet.Ado
 {
@@ -23,9 +25,15 @@ namespace Dotnet.Ado
     public class AdoRepositoryBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity, TPrimaryKey>  where TEntity : class, IEntity<TPrimaryKey>, new() 
     {
 
-        public IActiveTransactionProvider _activeTransactionProvider { get; set; }
-
         public Database db { get; set; }
+
+        public AdoRepositoryBase() {}
+
+        public AdoRepositoryBase(Database database, IActiveTransactionProvider activeTransactionProvider)
+        {
+            this.db = database;
+            this._activeTransactionProvider = activeTransactionProvider;
+        }
 
         public virtual DbConnection Connection
         {
@@ -113,15 +121,16 @@ namespace Dotnet.Ado
 
         public override IEnumerable<TAny> Query<TAny>(string query, object parameters = null)
         {
-            /*  DbCommand dbCommand = db.GetSqlStringCommand(query);
-              if (parameters != null)
-              {
-                  foreach (var item in parameters)
-                  {
-                      db.AddInParameter(dbCommand, item.Key, item.Value);
-                  }
-              return db.ExecuteReader<TAny>(dbCommand);
-              }*/
+            DbCommand dbCommand = db.GetSqlStringCommand(query);
+            if (parameters != null)
+            {
+                foreach (var item in ReflectionHelper.GetObjectValues(parameters))
+                {
+                    db.AddInParameter(dbCommand, item.Key, item.Value);
+                }
+            }
+            return db.ExecuteReader<TAny>(dbCommand);
+
             throw new NotImplementedException();
         }
 
@@ -188,6 +197,7 @@ namespace Dotnet.Ado
 
         public override IEnumerable<TEntity> GetAllPaged(Expression<Func<TEntity, bool>> predicate, int pageNumber, int itemsPerPage, bool ascending = true, params Expression<Func<TEntity, object>>[] sortingExpression)
         {
+
             throw new NotImplementedException();
         }
 
@@ -232,8 +242,10 @@ namespace Dotnet.Ado
             DbCommand dbCommand = db.GetSqlStringCommand(sqlBuilder.Sql);
             dbCommand.Parameters.AddRange(sqlBuilder.DbParameters.ToArray());
             object obj=  db.ExecuteScalar(dbCommand);
-            return  (TPrimaryKey)obj;  //这里会报错，有空再研究。哈哈
+            return ConvertUtil.To<TPrimaryKey>(obj);        
         }
+
+        
 
 
         #region 执行command
@@ -376,5 +388,13 @@ namespace Dotnet.Ado
         }
 
         #endregion
+
+
+
+        public override void SetDataContextByResloveName(string contextName)
+        {
+            db.DbContext= IocManager.GetContainer().ResolveNamed<IDbContext>(contextName);
+            base.SetDataContextByResloveName(contextName);
+        }
     }
 }

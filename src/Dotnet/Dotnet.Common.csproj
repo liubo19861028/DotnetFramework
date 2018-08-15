@@ -7,10 +7,10 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <Authors>liubo</Authors>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Description>通用的.net类库</Description>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Providers\AbstractDataServicesProvider.cs" />
+    <Compile Remove="Services\Microservice.cs" />
     <Compile Remove="Utility\JsonUtil.cs" />
     <Compile Remove="Utility\ObjectId.cs" />
     <Compile Remove="Utility\UnilayerXml.cs" />
@@ -34,7 +35,6 @@
   <ItemGroup>
     <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.7.0" />
     <PackageReference Include="lcpi.data.oledb" Version="1.7.2.3437" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
     <PackageReference Include="MySql.Data" Version="8.0.11" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />

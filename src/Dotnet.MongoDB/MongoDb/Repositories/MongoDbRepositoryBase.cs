@@ -12,7 +12,7 @@ namespace Dotnet.MongoDb.Repositories
     /// Implements IRepository for MongoDB.
     /// </summary>
     /// <typeparam name="TEntity">Type of the Entity for this repository</typeparam>
-    public class MongoDbRepositoryBase<TEntity> : MongoDbRepositoryBase<TEntity, int>, IRepository<TEntity>
+    public class MongoDbRepositoryBase<TEntity> : MongoDbRepositoryBase<TEntity, int>, IServices<TEntity>
         where TEntity : class, IEntity<int>, new()
     {
         public MongoDbRepositoryBase(IMongoDatabaseProvider databaseProvider)

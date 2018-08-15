@@ -19,11 +19,14 @@ namespace Dotnet.Ef
         where TEntity : class, IEntity<TPrimaryKey>, new()
     {
 
-        public EfActiveTransactionProvider _activeTransactionProvider { get; set; }
+        // public new EfActiveTransactionProvider _activeTransactionProvider { get; set; }
+
+        private EfActiveTransactionProvider provider => (EfActiveTransactionProvider)_activeTransactionProvider;
 
         public virtual DbContext Context
         {
-            get { return (DbContext)_activeTransactionProvider.GetDbContext(ActiveTransactionProviderArgs.Empty); }
+            
+            get { return (DbContext)provider.GetDbContext(ActiveTransactionProviderArgs.Empty); }
         }
 
         public virtual DbConnection Connection

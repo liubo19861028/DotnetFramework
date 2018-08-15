@@ -8,7 +8,7 @@ using System.Text;
 using System.Web;
 using Dotnet.Security.Principals;
 using Dotnet.Extensions;
-using Microsoft.AspNetCore.Hosting;
+//using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
@@ -60,7 +60,7 @@ namespace Dotnet.Utility
         /// <summary>
         /// 宿主环境
         /// </summary>
-        public static IHostingEnvironment Environment { get; set; }
+       // public static IHostingEnvironment Environment { get; set; }
 
         #endregion
 
@@ -232,7 +232,7 @@ namespace Dotnet.Utility
         /// <summary>
         /// 根路径
         /// </summary>
-        public static string RootPath => Environment?.ContentRootPath;
+      //  public static string RootPath => Environment?.ContentRootPath;
 
         #endregion 
 
@@ -241,7 +241,7 @@ namespace Dotnet.Utility
         /// <summary>
         /// Web根路径，即wwwroot
         /// </summary>
-        public static string WebRootPath => Environment?.WebRootPath;
+      //  public static string WebRootPath => Environment?.WebRootPath;
 
         #endregion 
 
